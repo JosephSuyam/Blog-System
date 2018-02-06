@@ -38,13 +38,13 @@
                     </div><!--panel-->
                     <input type="hidden" name="blog_id" value="{{ $blog->blog_id }}">
                     <button type="submit" name="delete" class="btn btn-danger">Delete</button>
-                    <!-- <div class="dropdown" style = "width: 125px; float: right; margin-right: 17px;">
+                    <div class="dropup" style = "width: ; float: right; margin-right: 17px;">
                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Publish Settings&nbsp;<span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li> --><input type = "submit" value = "Publish" name="publish" class = "btn btn-success" style = "width: 125px; float: right; margin-right: ;"/><!-- </li>
-                            <li> --><input type = "submit" value = "Unpublish" name="unpublish" id = "" class = "btn btn-success" style = "width: 125px; float: right; margin-right: 17px;;"/><!-- </li>
+                            <li><input type = "submit" value = "Publish" name="publish" class = "btn btn-success" style = "display: inline-block; width: 100%;"/></li>
+                            <li><input type = "submit" value = "Unpublish" name="unpublish" id = "" class = "btn btn-success" style = "display: inline-block; width: 100%;"/></li>
                         </ul>
-                    </div> -->
+                    </div>
                     <button type="submit" name="saveButton" class="btn btn-outline-info" style="float: right; margin-right: 20px;">Save</button>
                 </form>
                 @if(!strpos($_SERVER['REQUEST_URI'], '/home/'))
@@ -70,7 +70,7 @@
         </div>
         @if(Session::has('message'))
             <div class="form-group"><center>
-                <div class="alert alert-info" style="width: 50%;"><a href="author_panel.php" class="close" data-dismiss="alert">&times;</a><strong>{{ Session::get('message') }}</strong></div>
+                <div class="alert alert-info" style="width: 50%;"><a href="" class="close" data-dismiss="alert">&times;</a><strong>{{ Session::get('message') }}</strong></div>
             </center></div>
         @endif
     </div>

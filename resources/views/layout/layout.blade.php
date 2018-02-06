@@ -13,6 +13,7 @@
         <!-- java script files -->
         <script language = "javascript" type = "text/javascript" src = "{{ asset('js/jquery-2.0.2.js') }}"></script>
         <script language = "javascript" type = "text/javascript" src = "{{ asset('js/jquery.min.js') }}"></script>
+        <script language = "javascript" type = "text/javascript" src = "{{ asset('js/bootstrap.js') }}"></script>
 
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Raleway:100,600" rel="stylesheet" type="text/css">

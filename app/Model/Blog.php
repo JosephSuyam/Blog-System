@@ -29,13 +29,17 @@ class Blog extends Model
     }
 
     public static function viewuserBlogs(){ // users/home
-    	$user_stuff = auth()->user();
-		$user_id = $user_stuff->id;
-    	$blogs = \DB::table('blogs')
-		->select('blogs.*')
-		->where('user_id', '=', $user_id)
-		->get();
-		return $blogs;
+    	if(\Auth::check()){
+	    	$user_stuff = auth()->user();
+			$user_id = $user_stuff->id;
+	    	$blogs = \DB::table('blogs')
+			->select('blogs.*')
+			->where('user_id', '=', $user_id)
+			->get();
+			return $blogs;
+		}else{
+			return redirect()->to('/');
+		}
     }
 
     public static function openBlogs($id){ // open blog on welcome
@@ -71,7 +75,13 @@ class Blog extends Model
 		return $qry;
     }
 
-    public static function addBlog($blog_id, $blog_title, $blog){ // view comments on openblog.blade
+    public static function addBlog($user_id, $blog_title, $blog){ // add blog on users/home.blade
+		$qry = \DB::table('blogs')
+		->insert(['blog_title' => $blog_title, 'blog' => $blog, 'user_id' => $user_id, 'blog_date' => NOW(), 'allow' => '1']);
+		return $qry;
+    }
+
+    public static function editBlog($blog_id, $blog_title, $blog){ // edit blog on
 		$qry = \DB::table('blogs')
 		->where('blog_id', $blog_id)
 		->update(['blog_title' => $blog_title, 'blog' => $blog]);

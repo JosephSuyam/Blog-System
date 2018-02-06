@@ -22,14 +22,10 @@ use Illuminate\Support\Facades\Input;
 	function checkAccess(){
 		$user_stuff = auth()->user();
 		$access = $user_stuff->access;
-		if($access===NULL){
+		if($access==1){
 			
 		}else{
-			echo '<script>document.getElementsByTagName("form")[0].submit();</script>
-				<form id="logout-form" action="{{ route("logout") }}" method="POST" style="display: none;">
-	                {{ csrf_field() }}
-	            </form>
-			';
+			die('Not logged in');
 		}
 	}
 

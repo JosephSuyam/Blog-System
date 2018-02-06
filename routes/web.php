@@ -26,10 +26,18 @@ Route::get('users/home', function(){
 
 Route::get('/', 'CreatedControllers\BlogController@viewAllBlogs'); // view allowed blogs on welcome
 
-Route::get('users/home', 'CreatedControllers\BlogController@viewUserBlogs'); // view users blogs on users/home
+Route::get('users/home', 'CreatedControllers\BlogController@viewUserBlogs'); // view users blogs on users/home.blade
 
 Route::get('/openblog/{id}', 'CreatedControllers\BlogController@openBlogs'); // open blog on welcome
 
-Route::post('/openblog/{blog_id}/comment', 'CreatedControllers\Fun@comment');
+Route::get('users/addblog', 'CreatedControllers\BlogController@viewCreatedBlogs'); // view users blogs on users/addblog.blade
 
-Route::post('users/home/{blog_id}/addBlog', 'CreatedControllers\Fun@home');
+Route::get('users/home/{blog_id}', 'CreatedControllers\BlogController@viewSelectedBlog'); // view users blogs on users/home/{blog_id}
+
+
+
+Route::post('/openblog/{blog_id}/comment', 'CreatedControllers\Fun@comment'); // comment on users/openblog.blade
+
+Route::post('users/home/{blog_id}/addBlog', 'CreatedControllers\Fun@home'); // form in users/home.blade
+
+Route::post('users/addblog/new', 'CreatedControllers\BlogController@addBlog'); // form in users/home.blade

@@ -71,7 +71,7 @@ class Fun extends Controller
 					$user_stuff = auth()->user();
 					$user_id = $user_stuff->id;
 					if(isset($blog_title) && isset($blog)){
-						$blogs = Blog::addBlog($blog_id, $blog_title, $blog);
+						$blogs = Blog::editBlog($blog_id, $blog_title, $blog);
 						return redirect()->to('users/home')->with('message', 'Your Blog have been Saved!');
 					}else{
 						return redirect()->to('users/home')->with('message', 'Please fill up all forms.');
