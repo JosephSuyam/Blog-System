@@ -25,7 +25,7 @@
                     </div><!--panel-->
             </div>
             <div class="col-sm-8">
-                @if(isset($blog))
+            @if(isset($blog))
                 <form method="POST" action="{{ (strpos($_SERVER['REQUEST_URI'], '/home/')) ? $blog->blog_id.'/addBlog' : 'home/'.$blog->blog_id.'/addBlog' }}">
                     {{ csrf_field() }}
                     <div class = "panel panel-default" style="min-width: 65%;">
@@ -38,13 +38,13 @@
                     </div><!--panel-->
                     <input type="hidden" name="blog_id" value="{{ $blog->blog_id }}">
                     <button type="submit" name="delete" class="btn btn-danger">Delete</button>
-                    <div class="dropup" style = "width: 125px; float: right; margin-right: 17px;">
+                    <!-- <div class="dropdown" style = "width: 125px; float: right; margin-right: 17px;">
                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Publish Settings&nbsp;<span class="caret"></span></button>
                         <ul class="dropdown-menu">
-                            <li><input type = "submit" value = "Publish" name="publish" class = "btn btn-success" style = " display: inline-block; width: 100%;"/></li>
-                            <li><input type = "submit" value = "Unpublish" name="unpublish" id = "" class = "btn btn-success" style = " display: inline-block; width: 100%;"/></li>
+                            <li> --><input type = "submit" value = "Publish" name="publish" class = "btn btn-success" style = "width: 125px; float: right; margin-right: ;"/><!-- </li>
+                            <li> --><input type = "submit" value = "Unpublish" name="unpublish" id = "" class = "btn btn-success" style = "width: 125px; float: right; margin-right: 17px;;"/><!-- </li>
                         </ul>
-                    </div>
+                    </div> -->
                     <button type="submit" name="saveButton" class="btn btn-outline-info" style="float: right; margin-right: 20px;">Save</button>
                 </form>
                 @if(!strpos($_SERVER['REQUEST_URI'], '/home/'))
@@ -68,5 +68,10 @@
             </div>
             <a href="logout"><button style="float:right;" class="btn btn-outline-danger">Logout kanu met yaaa</button></a>
         </div>
+        @if(Session::has('message'))
+            <div class="form-group"><center>
+                <div class="alert alert-info" style="width: 50%;"><a href="author_panel.php" class="close" data-dismiss="alert">&times;</a><strong>{{ Session::get('message') }}</strong></div>
+            </center></div>
+        @endif
     </div>
 @endsection

@@ -10,21 +10,21 @@ use App\Model\Comment;
 
 class Fun extends Controller
 {
-	public function viewAllBlogs(){
-		$blogs = Blog::getAllowedBlog();
-		return view('welcome', compact('blogs'));
-	}
+	// public function viewAllBlogs(){ // welcome
+	// 	$blogs = Blog::getAllowedBlog();
+	// 	return view('welcome', compact('blogs'));
+	// }
 
-	public function viewUserBlogs(){
-		$blogs = Blog::viewuserBlogs();
-		return view('users/home', compact('blogs'));
-	}
+	// public function viewUserBlogs(){ // users/home
+	// 	$blogs = Blog::viewuserBlogs();
+	// 	return view('users/home', compact('blogs'));
+	// }
 
-	public function openBlogs($id){
-		$data['blog'] = User::openBlogs($id);
-		$data['comments'] = Blog::viewComments($id);
-		return view('users/openblog', $data);
-	}
+	// public function openBlogs($id){ // open blog on welcome
+	// 	$data['blog'] = User::openBlogs($id);
+	// 	$data['comments'] = Blog::viewComments($id);
+	// 	return view('users/openblog', $data);
+	// }
 
 	public function comment(Request $request){ // add comment on openblog
 		$commented_blog = $request->commented_blog;
@@ -45,20 +45,117 @@ class Fun extends Controller
 		return view('users/openblog', $data);
 	}
 
-	public function comments(Request $request){
-		$commented_blog = $request->commented_blog;
-		$commentor_name = $request->commentor_name;
-		$comment = $request->comment;
-		if(isset($commentor_name) && isset($comment)){
-			$qry = \DB::table('comment')
-			->insert(
-				['commented_blog' => $commented_blog, 'commentor_name' => $commentor_name, 'comment' => $comment, 'comment_date' => NOW()]
-				);
-			return back()->with('message', 'Comment uploaded');
+	public function home(Request $request){	//  on users/home
+		$blog_id = $_POST['blog_id'];
+		$type = gettype($blog_id);
+		$num = "1";
+		$typeint = gettype($num);
+		if($type==$typeint){
+			if(isset($_POST['blog_id']) && !empty($_POST['blog_id'])){
+				$blog_id = $request->blog_id;
+				$blog_title = $request->blog_title;
+				$blog = $request->blog;
+				if(isset($_POST['delete'])){	// delete blog
+					$blog = Blog::where(array('blog_id'=>$blog_id));
+					$blog->delete();
+					$comment = Comment::where(array('commented_blog'=>$blog_id));
+					$comment->delete();
+					return redirect()->to('users/home')->with('message', 'Blog Deleted!');
+				}elseif(isset($_POST['publish'])){
+					$blogs = Blog::publish($blog_id);
+					return redirect()->to('users/home')->with('message', 'Blog Published!');
+				}elseif(isset($_POST['unpublish'])){
+					$blogs = Blog::unpublish($blog_id);
+					return redirect()->to('users/home')->with('message', 'Blog Unpublished!');
+				}elseif(isset($_POST['saveButton'])){
+					$user_stuff = auth()->user();
+					$user_id = $user_stuff->id;
+					if(isset($blog_title) && isset($blog)){
+						$blogs = Blog::addBlog($blog_id, $blog_title, $blog);
+						return redirect()->to('users/home')->with('message', 'Your Blog have been Saved!');
+					}else{
+						return redirect()->to('users/home')->with('message', 'Please fill up all forms.');
+					}
+				}else{
+					die("Check author_panel form");
+				}
+			}else{
+				return redirect()->to('users/home')->with('message', 'Please select a blog.');
+			}
 		}else{
-			return back()->with('message', 'Please fill up all forms');
+			die('error');
 		}
 	}
+
+	// public function addBlog(Request $request){
+	// 	$blog_id = $_POST['blog_id'];
+	// 	$type = gettype($blog_id);
+	// 	$num = "1";
+	// 	$typeint = gettype($num);
+	// 	if($type==$typeint){
+	// 		if(isset($_POST['blog_id']) && !empty($_POST['blog_id'])){
+	// 			if(isset($_POST['delete'])){
+	// 				$blog_id = $request->blog_id;
+	// 				$qry = \DB::table('blog')
+	// 				->where('blog_id', '=', $blog_id)
+	// 				->delete();
+
+	// 				$qry = \DB::table('comment')
+	// 				->where('commented_blog', '=', $blog_id)
+	// 				->delete();
+	// 				return redirect()->to('/home')->with('message', 'Blog Deleted!');
+	// 			}elseif(isset($_POST['publish'])){
+	// 				$blog_id = $request->blog_id;
+	// 				$qry = \DB::table('blog')
+	// 				->where('blog_id', $blog_id)
+	// 				->update(['allow' => 1]);
+	// 				return redirect()->to('/home')->with('message', 'Blog Published!');
+	// 			}elseif(isset($_POST['unpublish'])){
+	// 				$blog_id = $request->blog_id;
+	// 				$qry = \DB::table('blog')
+	// 				->where('blog_id', $blog_id)
+	// 				->update(['allow' => 0]);
+	// 				return redirect()->to('/home')->with('message', 'Blog Unpublished!');
+	// 			}elseif(isset($_POST['saveButton'])){
+	// 				$blog_id = $request->blog_id;
+	// 				$blog_title = $request->blog_title;
+	// 				$blog = $request->blog;$user_stuff = auth()->user();
+	// 				$user_id = $user_stuff->id;
+	// 				if(isset($blog_title) && isset($blog)){
+	// 					$qry = \DB::table('blog')
+	// 					->where('blog_id', $blog_id)
+	// 					->update(
+	// 						['blog_title' => $blog_title, 'blog' => $blog]
+	// 						);
+	// 					return redirect()->to('/home')->with('message', 'Your Blog have been Saved!');
+	// 				}else{
+	// 					return redirect()->to('/home')->with('message', 'Please fill up all forms.');
+	// 				}
+	// 			}else{
+	// 				die("Check author_panel form");
+	// 			}
+	// 		}else{
+	// 			return redirect()->to('/home')->with('message', 'Please select a blog.');
+	// 		}
+	// 	}else{
+	// 		die('error');
+	// 	}
+	// }
+
+	// public function comments(Request $request){ // add comment on users/openBlogs
+	// 	$commented_blog = $request->commented_blog;
+	// 	$commentor_name = $request->commentor_name;
+	// 	$comment = $request->comment;
+	// 	if(isset($commentor_name) && isset($comment)){
+	// 		$qry = \DB::table('comment')
+	// 		->insert(
+	// 			['commented_blog' => $commented_blog, 'commentor_name' => $commentor_name, 'comment' => $comment, 'comment_date' => NOW()]
+	// 			);
+	// 		return back()->with('message', 'Comment uploaded');
+	// 	}else{
+	// 		return back()->with('message', 'Please fill up all forms');
+	// 	}
+	// }
 
 	// public function viewBlogs2(){
 	// 	$users = \DB::table('users')
@@ -145,61 +242,6 @@ class Fun extends Controller
 	}
 
 // CREATE SYNTAX (CHECK ALSO ROUTES/WEB.PHP)
-
-	public function addBlog(Request $request){
-		$blog_id = $_POST['blog_id'];
-		$type = gettype($blog_id);
-		$num = "1";
-		$typeint = gettype($num);
-		if($type==$typeint){
-			if(isset($_POST['blog_id']) && !empty($_POST['blog_id'])){
-				if(isset($_POST['delete'])){
-					$blog_id = $request->blog_id;
-					$qry = \DB::table('blog')
-					->where('blog_id', '=', $blog_id)
-					->delete();
-
-					$qry = \DB::table('comment')
-					->where('commented_blog', '=', $blog_id)
-					->delete();
-					return redirect()->to('/home')->with('message', 'Blog Deleted!');
-				}elseif(isset($_POST['publish'])){
-					$blog_id = $request->blog_id;
-					$qry = \DB::table('blog')
-					->where('blog_id', $blog_id)
-					->update(['allow' => 1]);
-					return redirect()->to('/home')->with('message', 'Blog Published!');
-				}elseif(isset($_POST['unpublish'])){
-					$blog_id = $request->blog_id;
-					$qry = \DB::table('blog')
-					->where('blog_id', $blog_id)
-					->update(['allow' => 0]);
-					return redirect()->to('/home')->with('message', 'Blog Unpublished!');
-				}elseif(isset($_POST['saveButton'])){
-					$blog_id = $request->blog_id;
-					$blog_title = $request->blog_title;
-					$blog = $request->blog;$user_stuff = auth()->user();
-					$user_id = $user_stuff->id;
-					if(isset($blog_title) && isset($blog)){
-						$qry = \DB::table('blog')
-						->where('blog_id', $blog_id)
-						->update(
-							['blog_title' => $blog_title, 'blog' => $blog]
-							);
-						return redirect()->to('/home')->with('message', 'Your Blog have been Saved!');
-					}else{
-						return redirect()->to('/home')->with('message', 'Please fill up all forms.');
-					}
-				}else{
-					die("Check author_panel form");
-				}
-			}else{
-				return redirect()->to('/home')->with('message', 'Please select a blog.');
-			}
-		}else{
-			die('error');
-		}
-	}
 
 	public function newBlog(Request $request){
 		$blog_title = $request->blog_title;

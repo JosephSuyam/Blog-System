@@ -24,12 +24,12 @@ Route::get('users/home', function(){
 	return view('users/home');
 });
 
-Route::get('/', 'CreatedControllers\Fun@viewAllBlogs'); // view allowed blogs on welcome
+Route::get('/', 'CreatedControllers\BlogController@viewAllBlogs'); // view allowed blogs on welcome
 
-Route::get('users/home', 'CreatedControllers\Fun@viewUserBlogs'); // view users blogs on users/home
+Route::get('users/home', 'CreatedControllers\BlogController@viewUserBlogs'); // view users blogs on users/home
 
-Route::get('/openblog/{id}', 'CreatedControllers\Fun@openBlogs'); // open blog on welcome
-
-Route::get('/openblog/{id}', 'CreatedControllers\Fun@openBlogs'); // open blog on welcome
+Route::get('/openblog/{id}', 'CreatedControllers\BlogController@openBlogs'); // open blog on welcome
 
 Route::post('/openblog/{blog_id}/comment', 'CreatedControllers\Fun@comment');
+
+Route::post('users/home/{blog_id}/addBlog', 'CreatedControllers\Fun@home');

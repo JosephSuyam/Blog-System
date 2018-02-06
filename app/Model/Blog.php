@@ -57,6 +57,27 @@ class Blog extends Model
 		return $comment;
     }
 
+    public static function publish($id){ // view comments on openblog.blade
+		$qry = \DB::table('blogs')
+		->where('blog_id', $id)
+		->update(['allow' => 1]);
+		return $qry;
+    }
+
+    public static function unpublish($id){ // view comments on openblog.blade
+		$qry = \DB::table('blogs')
+		->where('blog_id', $id)
+		->update(['allow' => 0]);
+		return $qry;
+    }
+
+    public static function addBlog($blog_id, $blog_title, $blog){ // view comments on openblog.blade
+		$qry = \DB::table('blogs')
+		->where('blog_id', $blog_id)
+		->update(['blog_title' => $blog_title, 'blog' => $blog]);
+		return $qry;
+    }
+
     public $timestamps = false;
 
 }
