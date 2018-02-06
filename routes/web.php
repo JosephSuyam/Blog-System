@@ -34,6 +34,12 @@ Route::get('users/addblog', 'CreatedControllers\BlogController@viewCreatedBlogs'
 
 Route::get('users/home/{blog_id}', 'CreatedControllers\BlogController@viewSelectedBlog'); // view users blogs on users/home/{blog_id}
 
+Route::get('/admin/admin', 'CreatedControllers\Fun@author'); // admin/admin.blade
+
+Route::get('/admin/blog', 'CreatedControllers\Fun@selectBlog'); // admin/admin/blog.blade
+
+Route::get('/admin/comment', 'CreatedControllers\Fun@selectComment'); // admin/admin/comment.blade
+
 
 
 Route::post('/openblog/{blog_id}/comment', 'CreatedControllers\Fun@comment'); // comment on users/openblog.blade
@@ -41,3 +47,5 @@ Route::post('/openblog/{blog_id}/comment', 'CreatedControllers\Fun@comment'); //
 Route::post('users/home/{blog_id}/addBlog', 'CreatedControllers\Fun@home'); // form in users/home.blade
 
 Route::post('users/addblog/new', 'CreatedControllers\BlogController@addBlog'); // form in users/home.blade
+
+Route::post('admin/admin/panel', 'CreatedControllers\Fun@new'); // buttons in admin/admin.blade

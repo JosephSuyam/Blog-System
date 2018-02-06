@@ -12,5 +12,12 @@ class Comment extends Model
     	return $this->hasMany('Blogs');
     }
 
+    public static function selectComments(){ // select users for admin/admin
+        $comment = \DB::table('comments')
+		->select('comments.*')
+		->paginate(10);
+        return $comment;
+    }
+
     public $timestamps = false;
 }

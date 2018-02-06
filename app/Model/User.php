@@ -20,6 +20,14 @@ class User extends Model
 		return $blogs;
     }
 
+    public static function authors(){ // select users for admin/admin
+        $users = \DB::table('users')
+        ->select('users.*')
+        ->where('access', '!=', 2)
+        ->paginate(1);
+        return $users;
+    }
+
     // public $timestamps = false;
 
 }

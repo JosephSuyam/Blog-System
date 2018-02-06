@@ -41,8 +41,8 @@ class Fun extends Controller
 		}else{
 			return back()->with('message', 'Please fill up all forms');
 		}
-		$data['comments'] = Blog::viewComments($id);
-		return view('users/openblog', $data);
+		// $data['comments'] = Blog::viewComments($id);
+		// return view('users/openblog', $data);
 	}
 
 	public function home(Request $request){	//  on users/home
@@ -86,6 +86,45 @@ class Fun extends Controller
 			die('error');
 		}
 	}
+
+	public function author(){	// admin/admin.blade
+		$users = User::authors();
+		return view('admin/admin', compact('users'));
+	}
+
+	public function selectBlog(){	// admin/admin/blog.blade
+		$blog = Blog::selectBlogs();
+		return view('admin/blog', compact('blog'));
+	}
+
+	public function selectComment(){	// admin/admin/comment.blade
+		$data['comment'] = Comment::paginate(10);
+		// echo "<pre>";
+		// var_dump($data['comment'][0]['commentor_name']);
+		// echo "</pre>";
+		return view('admin/comment', $data);
+	}
+
+	// public function adminPanel(){
+	// 	if(isset($_POST['blog'])){
+	// 		$blog = \DB::table('blogs')
+	// 		->select('blogs.*', 'name')
+	// 		->join('users', 'blogs.user_id', '=', 'users.id')
+	// 		->paginate(10);
+	// 		return view('admin/admin/panel', compact('blog'));
+	// 	}elseif(isset($_POST['comment'])){
+	// 		$comment = \DB::table('comments')
+	// 		->select('comments.*')
+	// 		->paginate(10);
+	// 		return view('admin/admin/panel', compact('comment'));
+	// 	}else{
+	// 		$users = \DB::table('users')
+	// 		->select('users.*')
+	// 		->where('access', '!=', 2)
+	// 		->paginate(10);
+	// 		return view('admin/admin', compact('users'));
+	// 	}
+	// }
 
 	// public function addBlog(Request $request){
 	// 	$blog_id = $_POST['blog_id'];
@@ -223,23 +262,6 @@ class Fun extends Controller
 	// 	->paginate(5);
 	// 	return view('openblog', compact('users', 'comment'));
 	// }
-
-	public function adminPanel(){
-		$users = \DB::table('users')
-		->select('users.*')
-		->where('usertype', '=', NULL)
-		->paginate(10);
-
-		$blog = \DB::table('blog')
-		->select('blog.*', 'name')
-		->join('users', 'blog.blogger_id', '=', 'users.id')
-		->paginate(10);
-
-		$comment = \DB::table('comment')
-		->select('comment.*')
-		->paginate(10);
-		return view('admin', compact('users', 'blog', 'comment'));
-	}
 
 // CREATE SYNTAX (CHECK ALSO ROUTES/WEB.PHP)
 

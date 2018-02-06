@@ -88,6 +88,14 @@ class Blog extends Model
 		return $qry;
     }
 
+    public static function selectBlogs(){ // select users for admin/admin
+        $blog = \DB::table('blogs')
+		->select('blogs.*', 'name')
+		->join('users', 'blogs.user_id', '=', 'users.id')
+		->paginate(10);
+        return $blog;
+    }
+
     public $timestamps = false;
 
 }
