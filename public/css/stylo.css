@@ -1,0 +1,218 @@
+html {
+	min-height: 100%;
+	height: 100%;
+	box-sizing: border-box;
+	font-family: 'Raleway', sans-serif;
+}
+
+*,
+*:before,
+*:after {
+  box-sizing: inherit;
+}
+
+body{
+	background-color: #FFFFFF; /*#f9fff9*/
+	position: relative;
+	min-height: 100%;
+	min-width: 100%;
+	/*display: table;*/
+	/*background-image: url(../img/2-sided.jpg);*/
+	
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.flex-center {
+    align-items: center;
+    display: flex;
+    justify-content: center;
+}
+
+.position-ref {
+    position: relative;
+}
+
+.top-right {
+    position: absolute;
+    right: 10px;
+    top: 18px;
+}
+
+.content {
+    text-align: center;
+}
+
+.title {
+    font-size: 84px;
+}
+
+.links > a {
+    color: #636b6f;
+    padding: 0 25px;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: .1rem;
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.m-b-md {
+    margin-bottom: 30px;
+}
+
+.banner{	
+	background-color: #36E639;
+	color: #000000;
+	border-bottom: 1px solid #000000;
+	font-family: Arial, Helvetica, sans-serif;
+	background-image: url(../img/banner4.png);
+	
+	top: 0;
+	right: 0;
+	left: 0;
+	padding: 5px;
+	padding-left: 20px;
+	position: top;
+	z-index: 1;	
+	
+}
+
+.container{
+	background-color: #ffffff !important;
+	opacity: 1;
+	padding-bottom: 6rem; /*6rem*/
+	font-family: Arial, Helvetica, sans-serif;
+	min-height: 100%;
+	min-width: 100%;
+	width: 100%;
+	position: relative;
+
+}
+
+
+.footer{
+	background-color: #1a1a1a; /*5ae866*/
+	color: #f2f2f2; /*1b3868*/
+	font-family: Arial, Helvetica, sans-serif;
+	border-top: 1px solid #000000;
+	border-bottom: 1px solid #000000;
+	/*background-image: url(../img/);*/
+
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	height: 35px; /*39, 32*/
+	vertical-align: middle;
+	line-height: 30px;
+	min-width: 100%;
+	
+}
+
+hr.hrstyle{
+	height: 10px;
+	border: 1px;
+	box-shadow: 0 10px 10px -10px #002663 inset;
+	min-width: 100%;
+	width: 100%;
+}
+
+img.imgstyle{
+	vertical-align: middle;
+	float: left;
+	width: 15%;
+	height: 15%;
+}
+
+div.divstyle{
+	display: block;
+}
+
+input.inputstyle{
+	border: none;
+	text-align: center;
+}
+
+.darkgreen{
+	color: #004d00;
+}
+
+.btnstyle{
+	width: 275px;
+	height: 50px;
+	font-size: 20px;
+}
+
+.imgstyle{
+	width: 75px;
+	height: 100px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+}
+
+.left-side {
+    background-color: blue;
+    float: none;
+    display: table-cell;
+    border: 1px solid;
+}
+
+.right-side {
+    background-color: red;
+    float: none;
+    display: table-cell;
+    border: 1px solid;
+}
+
+.inputstyle1{
+	width: 85%;
+	margin: 0 auto;
+}
+
+.submitbutton{
+	background-color: #FFFFFF;
+	border: none;
+	color: blue;
+}
+
+.vl {
+    border-left: thick solid #000000;
+    height: 50%;
+}
+
+.mar{
+	margin-bottom: 25px;
+	width: 50%;
+}
+
+.nbutt{
+	background-color: #FFFFFF;
+	border: 0;
+	color: #001687;
+}
+
+/* ANIMATION */
+
+.wii {
+    width: 100px;
+    height: 100px;
+    background: red;
+    -webkit-transition: width 2s, height 2s, -webkit-transform 2s; 
+    transition: width 2s, height 2s, transform 2s;
+}
+
+.wii:hover {
+    width: 300px;
+    height: 300px;
+    -webkit-transform: rotate(180deg); 
+    transform: rotate(180deg);
+}
+
+.circle:hover
+{
+	border-radius:50%;
+}

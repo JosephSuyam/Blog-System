@@ -1,0 +1,21 @@
+.submitbutton{
+	background-color: #FFFFFF;
+	border: none;
+	color: blue;
+}
+
+.vl {
+    border-left: thick solid #000000;
+    height: 50%;
+}
+
+.mar{
+	margin-bottom: 25px;
+	width: 50%;
+}
+
+.nbutt{
+	background-color: #FFFFFF;
+	border: 0;
+	color: #001687;
+}
