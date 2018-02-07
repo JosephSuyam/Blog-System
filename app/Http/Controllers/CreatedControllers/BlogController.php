@@ -10,33 +10,37 @@ use App\Model\Comment;
 
 class BlogController extends Controller
 {
-    public function viewAllBlogs(){ // welcome
+
+	// public function __construct()
+ //  {
+ //    $this->middleware('auth');
+ //  }
+
+  public function viewAllBlogs(){ // welcome
 		$blogs = Blog::getAllowedBlog();
 		return view('welcome', compact('blogs'));
 	}
 
 	public function viewUserBlogs(){ // users/home
-		// if(\Auth::check()){
+		if(\Auth::check()){
 			$user_stuff = auth()->user();
 			$user_id = $user_stuff->id;
 			$blogs = Blog::viewuserBlogs($user_id);
 			return view('users/home', compact('blogs'));
-		// }else{
-		// 	die('user no logger in1');
-		// 	return redirect()->to('/');
-		// }
+		}else{
+			return redirect()->to('/')->with('message', 'Please login to access site!');;
+		}
 	}
 
 	public function viewCreatedBlogs(){ // users/addblog
-		// if(\Auth::check()){
+		if(\Auth::check()){
 			$user_stuff = auth()->user();
 			$user_id = $user_stuff->id;
 			$blogs = Blog::viewuserBlogs($user_id);
 			return view('users/addblog', compact('blogs'));
-		// }else{
-		// 	die('user no logger in2');
-		// 	return redirect()->to('/');
-		// }
+		}else{
+			return redirect()->to('/')->with('message', 'Please login to access site!');;
+		}
 	}
 
 	public function openBlogs($id){ // open blog on welcome

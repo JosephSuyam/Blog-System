@@ -11,18 +11,16 @@
 |
 */
 
-
 Route::get('auth/social', 'Auth\SocialAuthController@show')->name('social.login');
 Route::get('oauth/{driver}', 'Auth\SocialAuthController@redirectToProvider')->name('social.oauth');
 Route::get('oauth/{driver}/callback', 'Auth\SocialAuthController@handleProviderCallback')->name('social.callback');
-// logout kanu
-Route::get('users/logout', function(){
+Route::get('users/logout', function(){  // logout kanu
 	Auth::logout();
 	return Redirect::to('/');
 });
-Route::get('users/home', function(){
-	return view('users/home');
-});
+// Route::get('users/home', function(){
+// 	return view('users/home');
+// });
 
 Route::get('/', 'CreatedControllers\BlogController@viewAllBlogs'); // view allowed blogs on welcome
 

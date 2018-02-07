@@ -20,80 +20,73 @@ class Blog extends Model
 
     public static function getAllowedBlog(){ // welcome
     	$blogs = \DB::table('blogs')
-		->select('name', 'blogs.*')
-		->join('users', 'blogs.user_id', '=', 'users.id')
-		->where('allow', '=', 1)
-		->orderBy('blog_date', 'desc')
-		->get();
-		return $blogs;
+			->select('name', 'blogs.*')
+			->join('users', 'blogs.user_id', '=', 'users.id')
+			->where('allow', '=', 1)
+			->orderBy('blog_date', 'desc')
+			->get();
+			return $blogs;
     }
 
     public static function viewuserBlogs($user_id){ // users/home
-   //  	if(\Auth::check()){
-	  //   	$user_stuff = auth()->user();
-			// $user_id = $user_stuff->id;
-	    	$blogs = \DB::table('blogs')
+    	$blogs = \DB::table('blogs')
 			->select('blogs.*')
 			->where('user_id', '=', $user_id)
 			->get();
 			return $blogs;
-		// }else{
-		// 	die('viewuserBlogs');
-		// 	return redirect()->to('/');
-		// }
     }
 
     public static function openBlogs($id){ // open blog on welcome
     	$blogs = \DB::table('blogs AS b')
-		->select('u.name', 'b.*')
-		->join('users AS u', 'b.user_id', '=', 'u.id')
-		->where('b.id', '=', $id)
-		->get();
-		return $blogs;
+			->select('u.name', 'b.*')
+			->join('users AS u', 'b.user_id', '=', 'u.id')
+			->where('b.id', '=', $id)
+			->get();
+			return $blogs;
     }
 
     public static function viewComments($id){ // view comments on openblog.blade
     	$comment = \DB::table('blogs AS b')
-		->select('commentor_name', 'comment', 'comment_date')
-		->join('comments AS c', 'b.id', '=', 'c.blog_id')
-		->where('b.id', '=', $id)
-		->orderBy('comment_date', 'desc')
-		->paginate(5);
-		return $comment;
+			->select('commentor_name', 'comment', 'comment_date')
+			->join('comments AS c', 'b.id', '=', 'c.blog_id')
+			->where('b.id', '=', $id)
+			->orderBy('comment_date', 'desc')
+			->paginate(5);
+			return $comment;
     }
 
     public static function publish($id){ // view comments on openblog.blade
-		$qry = \DB::table('blogs')
-		->where('id', $id)
-		->update(['allow' => 1]);
-		return $qry;
+			$qry = \DB::table('blogs')
+			->where('id', $id)
+			->update(['allow' => 1]);
+			return $qry;
     }
 
     public static function unpublish($id){ // view comments on openblog.blade
-		$qry = \DB::table('blogs')
-		->where('id', $id)
-		->update(['allow' => 0]);
-		return $qry;
+			$qry = \DB::table('blogs')
+			->where('id', $id)
+			->update(['allow' => 0]);
+			return $qry;
     }
 
     public static function addBlog($user_id, $blog_title, $blog){ // add blog on users/home.blade
-		$qry = \DB::table('blogs')
-		->insert(['blog_title' => $blog_title, 'blog' => $blog, 'user_id' => $user_id, 'blog_date' => NOW(), 'allow' => '1']);
-		return $qry;
+			$qry = \DB::table('blogs')
+			->insert(['blog_title' => $blog_title, 'blog' => $blog, 'user_id' => $user_id, 'blog_date' => NOW(), 'allow' => '1']);
+			return $qry;
     }
 
     public static function editBlog($blog_id, $blog_title, $blog){ // edit blog on
-		$qry = \DB::table('blogs')
-		->where('id', $blog_id)
-		->update(['blog_title' => $blog_title, 'blog' => $blog]);
-		return $qry;
+			$qry = \DB::table('blogs')
+			->where('id', $blog_id)
+			->update(['blog_title' => $blog_title, 'blog' => $blog]);
+			return $qry;
     }
 
     public static function selectBlogs(){ // select users for admin/admin
         $blog = \DB::table('blogs')
-		->select('blogs.*', 'name')
-		->join('users', 'blogs.user_id', '=', 'users.id')
-		->paginate(10);
+			->select('blogs.*', 'name')
+			->join('users', 'blogs.user_id', '=', 'users.id')
+			->paginate(10);
         return $blog;
     }
 

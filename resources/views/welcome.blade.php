@@ -10,9 +10,14 @@
                         <button type="button" data-dismiss="alert" aria-label="Close" class="close"><span aria-hidden="true">×</span></button>
                     </div>
                 @endif
-                <a href="{{ route('social.oauth', 'google') }}" class="btn btn-danger btn-block">
-                    Login with Google
-                </a>
+                <a href="{{ route('social.oauth', 'google') }}">
+                    <center><img src="{{ asset('img/google-login-button.png') }}" style="width: 75%;"></center>
+                </a><br><br>
+                @if(Session::has('message'))
+                    <div class="form-group"><center>
+                        <div class="alert alert-info" style="width: 75%;"><a href="author_panel.php" class="close" data-dismiss="alert">&times;</a><strong>{{ Session::get('message') }}</strong></div>
+                    </center></div>
+                @endif
             </div>
             <div class="col-sm-8" style="border-left: thick double #002259; height: 500px;">
                 <h2>Latest Articles</h2>

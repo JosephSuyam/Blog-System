@@ -124,13 +124,18 @@ class SocialAuthController extends Controller
 
         // if user already found
         if( $user ) {
-            // update the avatar and provider that might have changed
-            $user->update([
-                'avatar' => $providerUser->avatar,
-                'provider' => $driver,
-                'provider_id' => $providerUser->id,
-                'access_token' => $providerUser->token
-            ]);
+            if($user->access!=0){   // check if user is allowed to access account
+                // update the avatar and provider that might have changed
+                $user->update([
+                    'avatar' => $providerUser->avatar,
+                    'provider' => $driver,
+                    'provider_id' => $providerUser->id,
+                    'access_token' => $providerUser->token
+                ]);
+            }else{
+                Auth::logout();
+                return redirect('')->with('message', 'Your account is Disabled');
+            }
         } else {
             // create a new user
             $user = User::create([

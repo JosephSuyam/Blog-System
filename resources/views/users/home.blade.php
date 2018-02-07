@@ -1,6 +1,4 @@
 @extends('layout.layout')
-{{ checkUser() }}
-{{ checkAccess() }}
 
 @section('content')
     <div class="container">
