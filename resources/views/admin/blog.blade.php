@@ -40,17 +40,17 @@
                                             <input type="hidden" name="blog_id" value="{{ $blogs->blog_id }}">
                                         </form>
                                     @endforeach
-                                    {{ $blog->links() }}
+                                    {{ $blog->links() }}<br>
+                                    @if(Session::has('message'))
+                                        <div class="form-group"><center>
+                                            <div class="alert alert-info" style="width: 75%;"><a href="author_panel.php" class="close" data-dismiss="alert">&times;</a><strong>{{ Session::get('message') }}</strong></div>
+                                        </center></div>
+                                    @endif
                                 </div>
                             </div><!--panel-body-->
                         </div><!--panel-->
                     </div>
                 </div>
-                @if(Session::has('message'))
-                    <div class="form-group"><center>
-                        <div class="alert alert-info" style="width: 50%;"><a href="author_panel.php" class="close" data-dismiss="alert">&times;</a><strong>{{ Session::get('message') }}</strong></div>
-                    </center></div>
-                @endif
             </div>
         </div>
     </div>

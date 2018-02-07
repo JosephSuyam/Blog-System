@@ -34,11 +34,11 @@ Route::get('users/addblog', 'CreatedControllers\BlogController@viewCreatedBlogs'
 
 Route::get('users/home/{blog_id}', 'CreatedControllers\BlogController@viewSelectedBlog'); // view users blogs on users/home/{blog_id}
 
-Route::get('/admin/admin', 'CreatedControllers\Fun@author'); // admin/admin.blade
+Route::get('/admin/admin', 'CreatedControllers\UserController@author'); // admin/admin.blade
 
-Route::get('/admin/blog', 'CreatedControllers\Fun@selectBlog'); // admin/admin/blog.blade
+Route::get('/admin/blog', 'CreatedControllers\BlogController@selectBlog'); // admin/blog.blade
 
-Route::get('/admin/comment', 'CreatedControllers\Fun@selectComment'); // admin/admin/comment.blade
+Route::get('/admin/comment', 'CreatedControllers\CommentController@selectComment'); // admin/comment.blade
 
 
 
@@ -49,3 +49,9 @@ Route::post('users/home/{blog_id}/addBlog', 'CreatedControllers\Fun@home'); // f
 Route::post('users/addblog/new', 'CreatedControllers\BlogController@addBlog'); // form in users/home.blade
 
 Route::post('admin/admin/panel', 'CreatedControllers\Fun@new'); // buttons in admin/admin.blade
+
+Route::post('admin/admin/{id}/user', 'CreatedControllers\UserController@accessUser');	// enable/disable on admin/blog
+
+Route::post('admin/admin/{blog_id}/blog', 'CreatedControllers\Fun@blogControl');	// 	publish/unpublish on admin/blog
+
+Route::post('admin/admin/{comment_id}/comment', 'CreatedControllers\Fun@commentControl');	// delete comments on admin/comments

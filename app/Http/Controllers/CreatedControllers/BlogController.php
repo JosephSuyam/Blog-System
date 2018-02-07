@@ -48,4 +48,9 @@ class BlogController extends Controller
 			return redirect()->to('users/addblog')->with('message', 'Please fill up all forms.');
 		}
 	}
+
+	public function selectBlog(){	// admin/admin/blog.blade
+		$blog = Blog::selectBlogs();
+		return view('admin/blog', compact('blog'));
+	}
 }

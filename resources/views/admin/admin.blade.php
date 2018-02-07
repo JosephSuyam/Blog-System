@@ -31,7 +31,7 @@
                                     @foreach($users as $authors)
                                         <form method="POST" action="admin/{{ $authors->id }}/user">
                                         {{ csrf_field() }}
-                                            @if($authors->access===NULL)
+                                            @if($authors->access==1)
                                                 <button type="submit" name="enable" style="background-color: #FFFFFF; border: 0; color: #001687;">Enabled</button> |&nbsp;
                                             @else
                                                 <button type="submit" name="disable" style="background-color: #FFFFFF; border: 0; color: #001687;">Disabled</button> |&nbsp;
@@ -40,18 +40,17 @@
                                             <input type="hidden" name="id" value="{{ $authors->id }}">
                                         </form>
                                     @endforeach
-                                    {{ $users->links() }}
+                                    {{ $users->links() }}<br>
+                                    @if(Session::has('message'))
+                                        <div class="form-group"><center>
+                                            <div class="alert alert-info" style="width: 75%;"><a href="author_panel.php" class="close" data-dismiss="alert">&times;</a><strong>{{ Session::get('message') }}</strong></div>
+                                        </center></div>
+                                    @endif
                                 </div>
-                                
                             </div><!--panel-body-->
                         </div><!--panel-->
                     </div>
                 </div>
-                @if(Session::has('message'))
-                    <div class="form-group"><center>
-                        <div class="alert alert-info" style="width: 50%;"><a href="author_panel.php" class="close" data-dismiss="alert">&times;</a><strong>{{ Session::get('message') }}</strong></div>
-                    </center></div>
-                @endif
             </div>
         </div>
     </div>
