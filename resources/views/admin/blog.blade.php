@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <a href="/newBlog/public/users/home"><button class="btn btn-danger" style="float: right;">Go to Home Page</button></a>
+        <a href="/newblogsystem/public/users/home"><button class="btn btn-danger" style="float: right;">Go to Home Page</button></a>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 @if (session('status'))
@@ -29,7 +29,7 @@
                                 <!-- view accounts, blogs, comments -->
                                 <div id="blogs">
                                     @foreach($blog as $blogs)
-                                        <form method="POST" action="admin/{{ $blogs->blog_id }}/blog">
+                                        <form method="POST" action="admin/{{ $blogs->id }}/blog">
                                         {{ csrf_field() }}
                                             @if($blogs->allow==1)
                                                 <button type="submit" name="publish" style="background-color: #FFFFFF; border: 0; color: #001687;">Published</button> |&nbsp;
@@ -37,7 +37,7 @@
                                                 <button type="submit" name="unpublish" style="background-color: #FFFFFF; border: 0; color: #001687;">Unpublished</button> |&nbsp;
                                             @endif
                                             {{ $blogs->blog_title }} <cite style="color: #afafaf;"> {{ compDates($blogs->blog_date) }} by {{ $blogs->name }}</cite>
-                                            <input type="hidden" name="blog_id" value="{{ $blogs->blog_id }}">
+                                            <input type="hidden" name="blog_id" value="{{ $blogs->id }}">
                                         </form>
                                     @endforeach
                                     {{ $blog->links() }}<br>

@@ -27,12 +27,12 @@ class Fun extends Controller
 	// }
 
 	public function comment(Request $request){ // add comment on openblog
-		$commented_blog = $request->commented_blog;
+		$blog_id = $request->blog_id;
 		$commentor_name = $request->commentor_name;
 		$comment = $request->comment;
 		if(isset($commentor_name) && isset($comment)){
 			$commentClass = new Comment();
-			$commentClass->commented_blog = $commented_blog;
+			$commentClass->blog_id = $blog_id;
 			$commentClass->commentor_name = $commentor_name;
 			$commentClass->comment = $comment;
 			$commentClass->comment_date = NOW();
@@ -56,9 +56,9 @@ class Fun extends Controller
 				$blog_title = $request->blog_title;
 				$blog = $request->blog;
 				if(isset($_POST['delete'])){	// delete blog
-					$blog = Blog::where(array('blog_id'=>$blog_id));
+					$blog = Blog::where(array('id'=>$blog_id));
 					$blog->delete();
-					$comment = Comment::where(array('commented_blog'=>$blog_id));
+					$comment = Comment::where(array('blog_id'=>$blog_id));
 					$comment->delete();
 					return redirect()->to('users/home')->with('message', 'Blog Deleted!');
 				}elseif(isset($_POST['publish'])){
@@ -87,93 +87,40 @@ class Fun extends Controller
 		}
 	}
 
-	// public function accessUser(Request $request){	// update access of users
-	// 	$id = $request->id;
-	// 	$user = User::find($id);
-	// 	if(isset($_POST['enable'])){
-	// 		$user->access = 0;
-	// 		$user->save();
-	// 		return redirect()->to('admin/admin')->with('message', 'User Access Disabled!');
-	// 	}elseif(isset($_POST['disable'])){
-	// 		$user->access = 1;
-	// 		$user->save();
-	// 		return redirect()->to('admin/admin')->with('message', 'User Access Enabled!');
-	// 	}else{
-	// 		return redirect()->to('admin/admin')->with('message', 'No user selected.');
-	// 	}
-	// }
-
 	public function blogControl(Request $request){
 		$blog_id = $request->blog_id;
-		$blog = User::where('blog_id', $blog_id);
+		$blog = Blog::find($blog_id);
 		if(isset($_POST['publish'])){
-			// $qry = \DB::table('blog')
-			// ->where('blog_id', $blog_id)
-			// ->update(['allow' => 0]);
-
-			
 			$blog->allow = 0;
 			$blog->save();
-
-			return redirect()->to('/admin')->with('message', 'Blog unpublished!');
+			return redirect()->to('admin/blog')->with('message', 'Blog unpublished!');
 		}elseif(isset($_POST['unpublish'])){
-			// $qry = \DB::table('blog')
-			// ->where('blog_id', $blog_id)
-			// ->update(['allow' => 1]);
-
 			$blog->allow = 1;
 			$blog->save();
-			return redirect()->to('/admin')->with('message', 'Blog Published!');
+			return redirect()->to('admin/blog')->with('message', 'Blog Published!');
 		}else{
-			return redirect()->to('/admin')->with('message', 'No blog selected.');
+			return redirect()->to('admin/blog')->with('message', 'No blog selected.');
 		}
 	}
-
-	// public function blogControl(Request $request){
-	// 	$blog_id = $request->blog_id;
-	// 	if(isset($_POST['publish'])){
-	// 		$qry = \DB::table('blog')
-	// 		->where('blog_id', $blog_id)
-	// 		->update(['allow' => 0]);
-	// 		return redirect()->to('/admin')->with('message', 'Blog unpublished!');
-	// 	}elseif(isset($_POST['unpublish'])){
-	// 		$qry = \DB::table('blog')
-	// 		->where('blog_id', $blog_id)
-	// 		->update(['allow' => 1]);
-	// 		return redirect()->to('/admin')->with('message', 'Blog Published!');
-	// 	}else{
-	// 		return redirect()->to('/admin')->with('message', 'No blog selected.');
-	// 	}
-	// }
-
-	// public function enableUser(Request $request){
-	// 	$id = $request->id;
-	// 	if(isset($_POST['enable'])){
-	// 		$qry = \DB::table('users')
-	// 		->where('id', $id)
-	// 		->update(['access' => 0]);
-	// 		return redirect()->to('/admin')->with('message', 'User Access Disabled!');
-	// 	}elseif(isset($_POST['disable'])){
-	// 		$qry = \DB::table('users')
-	// 		->where('id', $id)
-	// 		->update(['access' => NULL]);
-	// 		return redirect()->to('/admin')->with('message', 'User Access Enabled!');
-	// 	}else{
-	// 		return redirect()->to('/admin')->with('message', 'No user selected.');
-	// 	}
-	// }
 
 	public function commentControl(Request $request){
 		$comment_id = $request->comment_id;
-		if(isset($_POST['delete'])){
-			$qry = \DB::table('comment')
-			->where('comment_id', $comment_id)
-			->delete();
-			return redirect()->to('/admin')->with('message', 'Comment Deleted!');
-		}else{
-			return redirect()->to('/admin')->with('message', 'No comment selected.');
-		}
+		$comment = Comment::find($comment_id);
+		$comment->delete();
+		return redirect()->to('admin/comment')->with('message', 'Comment Deleted!');
 	}
+
+	// public function commentControl(Request $request){
+	// 	$comment_id = $request->comment_id;
+	// 	if(isset($_POST['delete'])){
+	// 		$qry = \DB::table('comment')
+	// 		->where('comment_id', $comment_id)
+	// 		->delete();
+	// 		return redirect()->to('/admin')->with('message', 'Comment Deleted!');
+	// 	}else{
+	// 		return redirect()->to('/admin')->with('message', 'No comment selected.');
+	// 	}
+	// }
 
 	// public function author(){	// admin/admin.blade
 	// 	$users = User::where('access', '!=', 2)->paginate(5);	// eloquent select with condition and pagination

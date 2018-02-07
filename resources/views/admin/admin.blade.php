@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <a href="/newBlog/public/users/home"><button class="btn btn-danger" style="float: right;">Go to Home Page</button></a>
+        <a href="/newblogsystem/public/users/home"><button class="btn btn-danger" style="float: right;">Go to Home Page</button></a>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 @if (session('status'))

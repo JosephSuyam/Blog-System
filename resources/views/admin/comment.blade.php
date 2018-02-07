@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container">
-        <a href="/newBlog/public/users/home"><button class="btn btn-danger" style="float: right;">Go to Home Page</button></a>
+        <a href="/newblogsystem/public/users/home"><button class="btn btn-danger" style="float: right;">Go to Home Page</button></a>
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 @if (session('status'))
@@ -29,11 +29,11 @@
                                 <!-- view accounts, blogs, comments -->
                                 <div id="comments">
                                     @foreach($comment as $comments)
-                                        <form method="POST" action="admin/{{ $comments->comment_id }}/comment">
+                                        <form method="POST" action="admin/{{ $comments->id }}/comment">
                                         {{ csrf_field() }}
                                             <button type="submit" name="delete" style="background-color: #FFFFFF; border: 0; color: #001687;">Delete</button> |&nbsp;
                                             <span style="color: #afafaf;">{{ $comments->commentor_name }} said</span> {{ $comments->comment }} <cite style="color: #afafaf;"> {{ compDates($comments->comment_date) }}</cite>
-                                            <input type="hidden" name="comment_id" value="{{ $comments->comment_id }}">
+                                            <input type="hidden" name="comment_id" value="{{ $comments->id }}">
                                         </form>
                                     @endforeach
                                     {{ $comment->links() }}<br>

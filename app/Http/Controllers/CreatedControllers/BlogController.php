@@ -16,13 +16,27 @@ class BlogController extends Controller
 	}
 
 	public function viewUserBlogs(){ // users/home
-		$blogs = Blog::viewuserBlogs();
-		return view('users/home', compact('blogs'));
+		// if(\Auth::check()){
+			$user_stuff = auth()->user();
+			$user_id = $user_stuff->id;
+			$blogs = Blog::viewuserBlogs($user_id);
+			return view('users/home', compact('blogs'));
+		// }else{
+		// 	die('user no logger in1');
+		// 	return redirect()->to('/');
+		// }
 	}
 
 	public function viewCreatedBlogs(){ // users/addblog
-		$blogs = Blog::viewuserBlogs();
-		return view('users/addblog', compact('blogs'));
+		// if(\Auth::check()){
+			$user_stuff = auth()->user();
+			$user_id = $user_stuff->id;
+			$blogs = Blog::viewuserBlogs($user_id);
+			return view('users/addblog', compact('blogs'));
+		// }else{
+		// 	die('user no logger in2');
+		// 	return redirect()->to('/');
+		// }
 	}
 
 	public function openBlogs($id){ // open blog on welcome
@@ -32,8 +46,8 @@ class BlogController extends Controller
 	}
 
 	public function viewSelectedBlog($id){ // open blog selected on users/home/{blog_id}
-		$blog = Blog::openBlogs($id);
-		return view('users/home', $blog);
+		$data['blogs'] = Blog::openBlogs($id);
+		return view('users/home', $data);
 	}
 
 	public function addBlog(Request $request){
@@ -52,5 +66,21 @@ class BlogController extends Controller
 	public function selectBlog(){	// admin/admin/blog.blade
 		$blog = Blog::selectBlogs();
 		return view('admin/blog', compact('blog'));
+	}
+
+	public function blogControl(Request $request){
+		$blog_id = $request->blog_id;
+		$blog = Blog::find($blog_id);
+		if(isset($_POST['publish'])){
+			$blog->allow = 0;
+			$blog->save();
+			return redirect()->to('admin/blog')->with('message', 'Blog unpublished!');
+		}elseif(isset($_POST['unpublish'])){
+			$blog->allow = 1;
+			$blog->save();
+			return redirect()->to('admin/blog')->with('message', 'Blog Published!');
+		}else{
+			return redirect()->to('admin/blog')->with('message', 'No blog selected.');
+		}
 	}
 }

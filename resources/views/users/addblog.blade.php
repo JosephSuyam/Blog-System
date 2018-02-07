@@ -1,4 +1,6 @@
 @extends('layout.layout')
+{{ checkUser() }}
+{{ checkAccess() }}
 
 @section('content')
     <div class="container">
@@ -19,7 +21,7 @@
                         @foreach($blogs as $blog)
                             @if(isset($blog))
                                 <li>
-                                    <a href="{{ (strpos($_SERVER['REQUEST_URI'], '/home/')) ? $blog->blog_id : 'home/'.$blog->blog_id }}">
+                                    <a href="{{ (strpos($_SERVER['REQUEST_URI'], '/home/')) ? $blog->id : 'home/'.$blog->id }}">
                                         {{ $blog->blog_title }}
                                     </a>
                                 </li>

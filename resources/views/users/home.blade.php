@@ -1,4 +1,6 @@
 @extends('layout.layout')
+{{ checkUser() }}
+{{ checkAccess() }}
 
 @section('content')
     <div class="container">
@@ -13,7 +15,7 @@
 	                            @foreach($blogs as $blog)
 		                            @if(isset($blog))
 				                        <li>
-				                            <a href="{{ (strpos($_SERVER['REQUEST_URI'], '/home/')) ? $blog->blog_id : 'home/'.$blog->blog_id }}">
+				                            <a href="{{ (strpos($_SERVER['REQUEST_URI'], '/home/')) ? $blog->id : 'home/'.$blog->id }}">
 				                                {{ $blog->blog_title }}
 				                            </a>
 				                        </li>
@@ -26,7 +28,7 @@
             </div>
             <div class="col-sm-8">
             @if(isset($blog))
-                <form method="POST" action="{{ (strpos($_SERVER['REQUEST_URI'], '/home/')) ? $blog->blog_id.'/addBlog' : 'home/'.$blog->blog_id.'/addBlog' }}">
+                <form method="POST" action="{{ (strpos($_SERVER['REQUEST_URI'], '/home/')) ? $blog->id.'/addBlog' : 'home/'.$blog->id.'/addBlog' }}">
                     {{ csrf_field() }}
                     <div class = "panel panel-default" style="min-width: 65%;">
                         <div class = "panel-heading" style="background-color: #FFFFFF   ;">
@@ -36,7 +38,7 @@
                             <textarea name="blog" placeholder="Write your new blog here..." style="width: 100%; font-size: 20px; margin-top: 12px; height: 275px; resize: vertical; outline: none; border: 0;" placeholder="Write your new blog here...">{{ (isset($blog->blog)) ? $blog->blog : '' }}</textarea>
                         </div><!--panel-body-->
                     </div><!--panel-->
-                    <input type="hidden" name="blog_id" value="{{ $blog->blog_id }}">
+                    <input type="hidden" name="blog_id" value="{{ $blog->id }}">
                     <button type="submit" name="delete" class="btn btn-danger">Delete</button>
                     <div class="dropup" style = "width: ; float: right; margin-right: 17px;">
                         <button class="btn btn-success dropdown-toggle" type="button" data-toggle="dropdown">Publish Settings&nbsp;<span class="caret"></span></button>

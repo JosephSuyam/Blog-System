@@ -10,21 +10,19 @@ use Illuminate\Support\Facades\Input;
 
 	function checkUser(){
 		if(Auth::check()){
-			// die('logged in');
+			die('logged in');
 		}else{
-			return back();
+			// return back();
 			// header('location: ./');
 			// return redirect()->to('/login');
-			// die('we');
+			die('we');
 		}
 	}
 
 	function checkAccess(){
 		$user_stuff = auth()->user();
 		$access = $user_stuff->access;
-		if($access==1){
-			
-		}else{
+		if($access==0){
 			die('Not logged in');
 		}
 	}

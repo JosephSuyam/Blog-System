@@ -3,7 +3,7 @@
 @section('content')
     <div class = "row" style="min-width: 100%; width: 100%;">
         <div class = "col-sm-12" style="margin-left: 15px;">
-            <a href="/newBlog/public"><button class="btn btn-outline-danger" style="float: right;">Go to Previous Page</button></a>
+            <a href="/newblogsystem/public"><button class="btn btn-outline-danger" style="float: right;">Go to Previous Page</button></a>
             <!-- SHOW THE SELECTED BLOG-->
             
             <div style="font-size: ;"><h1>{{ $blog->blog_title }}</h1><hr class="hrstyle">
@@ -14,12 +14,12 @@
             @endforeach
             {{ $comments->links() }}
             <div style="margin-left: 15px;"><h3>Leave a comment:</h3>
-                <form method="POST" action="{{ $blog->blog_id }}/comment">
+                <form method="POST" action="{{ $blog->id }}/comment">
                     {{ csrf_field() }}
                     <div class="row form-group" style="margin-left: 20px;">
                         <input type="text" name="commentor_name" placeholder="Name" class="form-control" style="width: 50%" >
                         <textarea name="comment" placeholder="Write your comment here..." class="form-control" style="width: 50%; font-size: 20px; margin-top: 12px; height: 250px; resize: vertical;" ></textarea>
-                        <input type="hidden" name="commented_blog" value="{{ $blog->blog_id }}">
+                        <input type="hidden" name="blog_id" value="{{ $blog->id }}">
                         <input type="hidden" name="blog_title" value="{{ $blog->blog_title }}">
                         <button type="submit" class="btn btn-primary" style="margin-top: 12px;">Send Comment</button>
                     </div>

@@ -52,6 +52,6 @@ Route::post('admin/admin/panel', 'CreatedControllers\Fun@new'); // buttons in ad
 
 Route::post('admin/admin/{id}/user', 'CreatedControllers\UserController@accessUser');	// enable/disable on admin/blog
 
-Route::post('admin/admin/{blog_id}/blog', 'CreatedControllers\Fun@blogControl');	// 	publish/unpublish on admin/blog
+Route::post('admin/admin/{blog_id}/blog', 'CreatedControllers\BlogController@blogControl');	// 	publish/unpublish on admin/blog
 
 Route::post('admin/admin/{comment_id}/comment', 'CreatedControllers\Fun@commentControl');	// delete comments on admin/comments

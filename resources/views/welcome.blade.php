@@ -20,7 +20,7 @@
                 @foreach($blogs as $blog)
                     @if(isset($blog))
                         <li style="font-size: 25px; margin-left: 20px;">
-                            <a href="openblog/{{ $blog->blog_id }}">
+                            <a href="openblog/{{ $blog->id }}">
                                 {{ $blog->blog_title }}
                             </a>
                         </li>

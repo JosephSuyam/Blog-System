@@ -38,7 +38,7 @@ return [
     'google' => [ 
         'client_id' => env ( 'G+_CLIENT_ID' ),
         'client_secret' => env ( 'G+_CLIENT_SECRET' ),
-        'redirect' => env('APP_URL') . '/newBlog/public/oauth/google/callback',
+        'redirect' => env('APP_URL') . '/newblogsystem/public/oauth/google/callback',
         // 'redirect' => env ( 'G+_REDIRECT' )
     ],
 

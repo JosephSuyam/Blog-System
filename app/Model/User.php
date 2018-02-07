@@ -12,10 +12,10 @@ class User extends Model
     }
 
     public static function openBlogs($id){ // open blog on welcome
-    	$blogs = \DB::table('users')
-		->select('name', 'blogs.*')
-		->join('blogs', 'users.id', '=', 'blogs.user_id')
-		->where('blog_id', '=', $id)
+    	$blogs = \DB::table('users AS u')
+		->select('name', 'b.*')
+		->join('blogs AS b', 'u.id', '=', 'b.user_id')
+		->where('b.id', '=', $id)
 		->first();
 		return $blogs;
     }
