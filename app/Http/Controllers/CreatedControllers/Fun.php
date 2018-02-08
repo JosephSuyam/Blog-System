@@ -31,16 +31,23 @@ class Fun extends Controller
 					$comment->delete();
 					return redirect()->to('users/home')->with('message', 'Blog Deleted!');
 				}elseif(isset($_POST['publish'])){
-					$blogs = Blog::publish($blog_id);
+					$blogs = Blog::find($blog_id);
+					$blogs->allow = 1;
+					$blogs->save();
 					return redirect()->to('users/home')->with('message', 'Blog Published!');
 				}elseif(isset($_POST['unpublish'])){
-					$blogs = Blog::unpublish($blog_id);
+					$blogs = Blog::find($blog_id);
+					$blogs->allow = 0;
+					$blogs->save();
 					return redirect()->to('users/home')->with('message', 'Blog Unpublished!');
 				}elseif(isset($_POST['saveButton'])){
 					$user_stuff = auth()->user();
 					$user_id = $user_stuff->id;
 					if(isset($blog_title) && isset($blog)){
-						$blogs = Blog::editBlog($blog_id, $blog_title, $blog);
+						$blogs = Blog::find($blog_id);
+						$blogs->blog_title = $blog_title;
+						$blogs->blog = $blog;
+						$blogs->save();
 						return redirect()->to('users/home')->with('message', 'Your Blog have been Saved!');
 					}else{
 						return redirect()->to('users/home')->with('message', 'Please fill up all forms.');
@@ -71,55 +78,4 @@ class Fun extends Controller
 			return redirect()->to('admin/blog')->with('message', 'No blog selected.');
 		}
 	}
-
-// 	public function showMyBlogs(){
-// 		if(\Auth::check()){
-// 			$user_stuff = auth()->user();
-// 			$user_id = $user_stuff->id;
-// 			$user_stuff = auth()->user();
-// 			$user_id = $user_stuff->id;
-// 			$users = \DB::table('blog')
-// 			->select('blog.*')
-// 			->where('blogger_id', '=', $user_id)
-// 			->get();
-// 			// ->paginate(2);
-// 			return view('users/home', compact('users'));
-// 		}else{
-// 			return redirect()->to('/login');
-// 		}
-// 	}
-
-// 	public function showMyBlogs2(){
-// 		if(\Auth::check()){
-// 			$user_stuff = auth()->user();
-// 			$user_id = $user_stuff->id;
-// 			$user_stuff = auth()->user();
-// 			$user_id = $user_stuff->id;
-// 			$users = \DB::table('blog')
-// 			->select('blog.*')
-// 			->where('blogger_id', '=', $user_id)
-// 			->get();
-// 			return view('addblog', compact('users'));
-// 		}else{
-// 			return redirect()->to('/login');
-// 		}
-// 	}
-
-// // CREATE SYNTAX (CHECK ALSO ROUTES/WEB.PHP)
-
-// 	public function newBlog(Request $request){
-// 		$blog_title = $request->blog_title;
-// 		$blog = $request->blog;
-// 		$user_stuff = auth()->user();
-// 		$user_id = $user_stuff->id;
-// 		if(isset($blog_title) && isset($blog) && !empty($blog_title) && !empty($blog)){
-// 			$qry = \DB::table('blog')
-// 			->insert(
-// 				['blog_title' => $blog_title, 'blog' => $blog, 'blogger_id' => $user_id, 'blog_date' => NOW(), 'allow' => '1']
-// 				);
-// 			return redirect()->to('/home')->with('message', 'Your blog have been saved!');
-// 		}else{
-// 			return redirect()->to('/home')->with('message', 'Please fill up all forms.');
-// 		}
-// 	}
 }

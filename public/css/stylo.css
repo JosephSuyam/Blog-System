@@ -3,6 +3,7 @@ html {
 	height: 100%;
 	box-sizing: border-box;
 	font-family: 'Raleway', sans-serif;
+	background-color: #e5efff
 }
 
 *,
@@ -12,7 +13,7 @@ html {
 }
 
 body{
-	background-color: #FFFFFF; /*#f9fff9*/
+	background-color: ; /*#f9fff9*/
 	position: relative;
 	min-height: 100%;
 	min-width: 100%;
@@ -89,6 +90,7 @@ body{
 	min-width: 100%;
 	width: 100%;
 	position: relative;
+	padding-top: 10px;
 
 }
 

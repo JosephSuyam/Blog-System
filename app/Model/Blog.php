@@ -8,6 +8,10 @@ use App\Model\Comment;
 
 class Blog extends Model
 {
+	protected $fillable = [
+    'blog_title', 'blog', 'allow'
+  ];
+
 	public function blogToUser()
     {
     	return $this->belongsTo('Users'); // read as blog belongsTo users on blog.blogger_id=user.id
@@ -24,7 +28,7 @@ class Blog extends Model
 			->join('users', 'blogs.user_id', '=', 'users.id')
 			->where('allow', '=', 1)
 			->orderBy('blog_date', 'desc')
-			->get();
+			->paginate(5);
 			return $blogs;
     }
 
@@ -55,30 +59,9 @@ class Blog extends Model
 			return $comment;
     }
 
-    public static function publish($id){ // view comments on openblog.blade
-			$qry = \DB::table('blogs')
-			->where('id', $id)
-			->update(['allow' => 1]);
-			return $qry;
-    }
-
-    public static function unpublish($id){ // view comments on openblog.blade
-			$qry = \DB::table('blogs')
-			->where('id', $id)
-			->update(['allow' => 0]);
-			return $qry;
-    }
-
     public static function addBlog($user_id, $blog_title, $blog){ // add blog on users/home.blade
 			$qry = \DB::table('blogs')
 			->insert(['blog_title' => $blog_title, 'blog' => $blog, 'user_id' => $user_id, 'blog_date' => NOW(), 'allow' => '1']);
-			return $qry;
-    }
-
-    public static function editBlog($blog_id, $blog_title, $blog){ // edit blog on
-			$qry = \DB::table('blogs')
-			->where('id', $blog_id)
-			->update(['blog_title' => $blog_title, 'blog' => $blog]);
 			return $qry;
     }
 

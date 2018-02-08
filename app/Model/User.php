@@ -24,7 +24,7 @@ class User extends Model
         $users = \DB::table('users')
         ->select('users.*')
         ->where('access', '!=', 2)
-        ->paginate(1);
+        ->paginate(5);
         return $users;
     }
 
