@@ -8,25 +8,6 @@ use Illuminate\Http\Request;
 use App\Model;
 use Illuminate\Support\Facades\Input;
 
-	function checkUser(){
-		if(Auth::check()){
-			die('logged in');
-		}else{
-			// return back();
-			// header('location: ./');
-			// return redirect()->to('/login');
-			die('we');
-		}
-	}
-
-	function checkAccess(){
-		$user_stuff = auth()->user();
-		$access = $user_stuff->access;
-		if($access==0){
-			die('Not logged in');
-		}
-	}
-
 	function checkAdmin(){
 		$user_stuff = auth()->user();
 		$user_type = $user_stuff->usertype;

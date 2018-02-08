@@ -10,22 +10,9 @@ use App\Model\Comment;
 
 class Fun extends Controller
 {
-	public function comment(Request $request){ // add comment on openblog
-		$blog_id = $request->blog_id;
-		$commentor_name = $request->commentor_name;
-		$comment = $request->comment;
-		if(isset($commentor_name) && isset($comment)){
-			$commentClass = new Comment();
-			$commentClass->blog_id = $blog_id;
-			$commentClass->commentor_name = $commentor_name;
-			$commentClass->comment = $comment;
-			$commentClass->comment_date = NOW();
-			$commentClass->save();
-			return back()->with('message', 'Comment uploaded');
-		}else{
-			return back()->with('message', 'Please fill up all forms');
-		}
-	}
+	public function __construct(){
+    $this->middleware('auth');
+  }
 
 	public function home(Request $request){	//  on users/home
 		$blog_id = $_POST['blog_id'];
@@ -83,13 +70,6 @@ class Fun extends Controller
 		}else{
 			return redirect()->to('admin/blog')->with('message', 'No blog selected.');
 		}
-	}
-
-	public function commentControl(Request $request){
-		$comment_id = $request->comment_id;
-		$comment = Comment::find($comment_id);
-		$comment->delete();
-		return redirect()->to('admin/comment')->with('message', 'Comment Deleted!');
 	}
 
 // 	public function showMyBlogs(){

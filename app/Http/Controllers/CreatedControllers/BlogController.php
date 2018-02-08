@@ -11,42 +11,22 @@ use App\Model\Comment;
 class BlogController extends Controller
 {
 
-	// public function __construct()
- //  {
- //    $this->middleware('auth');
- //  }
-
-  public function viewAllBlogs(){ // welcome
-		$blogs = Blog::getAllowedBlog();
-		return view('welcome', compact('blogs'));
-	}
+	public function __construct(){
+    $this->middleware('auth');
+  }
 
 	public function viewUserBlogs(){ // users/home
-		if(\Auth::check()){
-			$user_stuff = auth()->user();
-			$user_id = $user_stuff->id;
-			$blogs = Blog::viewuserBlogs($user_id);
-			return view('users/home', compact('blogs'));
-		}else{
-			return redirect()->to('/')->with('message', 'Please login to access site!');;
-		}
+		$user_stuff = auth()->user();
+		$user_id = $user_stuff->id;
+		$blogs = Blog::viewuserBlogs($user_id);
+		return view('users/home', compact('blogs'));
 	}
 
 	public function viewCreatedBlogs(){ // users/addblog
-		if(\Auth::check()){
 			$user_stuff = auth()->user();
 			$user_id = $user_stuff->id;
 			$blogs = Blog::viewuserBlogs($user_id);
 			return view('users/addblog', compact('blogs'));
-		}else{
-			return redirect()->to('/')->with('message', 'Please login to access site!');;
-		}
-	}
-
-	public function openBlogs($id){ // open blog on welcome
-		$data['blog'] = User::openBlogs($id);
-		$data['comments'] = Blog::viewComments($id);
-		return view('users/openblog', $data);
 	}
 
 	public function viewSelectedBlog($id){ // open blog selected on users/home/{blog_id}

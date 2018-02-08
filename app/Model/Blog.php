@@ -86,6 +86,7 @@ class Blog extends Model
         $blog = \DB::table('blogs')
 			->select('blogs.*', 'name')
 			->join('users', 'blogs.user_id', '=', 'users.id')
+			->orderBy('blog_date', 'desc')
 			->paginate(10);
         return $blog;
     }

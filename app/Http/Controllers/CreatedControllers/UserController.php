@@ -10,8 +10,12 @@ use App\Model\Comment;
 
 class UserController extends Controller
 {
+	public function __construct(){
+    $this->middleware('auth');
+  }
+
 	public function author(){	// admin/admin.blade
-		$users = User::where('access', '!=', 2)->paginate(5);	// eloquent select with condition and pagination
+		$users = User::where('access', '!=', 2)->orderBy('created_at', 'desc')->paginate(5);	// eloquent select with condition, orderby and pagination
 		return view('admin/admin', compact('users'));
 	}
 
