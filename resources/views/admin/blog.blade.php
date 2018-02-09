@@ -18,7 +18,7 @@
                             </div>
                             <div class = "panel-body" style = "width: 100%;"><center>
                                 <a href="admin"><button type="submit" name="users" class="btn btn-default" style="margin-bottom: 25px; width: 50%;">Authors</button></a><br>
-                                <a href="blog"><button type="submit" name="blog" class="btn btn-default" style="margin-bottom: 25px; width: 50%;">Blogs</button></a><br>
+                                <a href="blog"><button type="submit" name="blog" class="btn btn-default active" style="margin-bottom: 25px; width: 50%;">Blogs</button></a><br>
                                 <a href="comment"><button type="submit" name="comment" class="btn btn-default" style="margin-bottom: 25px; width: 50%;">Comments</button></a>
                             </center></div><!--panel-body-->
                         </div><!--panel-->
@@ -26,8 +26,7 @@
                     <div class="col-sm-7">
                         <div class = "panel panel-default" style="min-width: 65%;">
                             <div class = "panel-body" style = "width: 100%;">
-                                <!-- view accounts, blogs, comments -->
-                                <div id="blogs">
+                                <div style="font-size: 15px;">
                                     @foreach($blog as $blogs)
                                         <form method="POST" action="admin/{{ $blogs->id }}/blog">
                                         {{ csrf_field() }}
@@ -38,7 +37,7 @@
                                             @endif
                                             {{ $blogs->blog_title }} <cite style="color: #afafaf;"> {{ compDates($blogs->blog_date) }} by {{ $blogs->name }}</cite>
                                             <input type="hidden" name="blog_id" value="{{ $blogs->id }}">
-                                        </form>
+                                        </form><hr style="margin: 10px;">
                                     @endforeach
                                     {{ $blog->links() }}<br>
                                     @if(Session::has('message'))

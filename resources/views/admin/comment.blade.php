@@ -19,22 +19,21 @@
                             <div class = "panel-body" style = "width: 100%;"><center>
                                 <a href="admin"><button type="submit" name="users" class="btn btn-default" style="margin-bottom: 25px; width: 50%;">Authors</button></a><br>
                                 <a href="blog"><button type="submit" name="blog" class="btn btn-default" style="margin-bottom: 25px; width: 50%;">Blogs</button></a><br>
-                                <a href="comment"><button type="submit" name="comment" class="btn btn-default" style="margin-bottom: 25px; width: 50%;">Comments</button></a>
+                                <a href="comment"><button type="submit" name="comment" class="btn btn-default active" style="margin-bottom: 25px; width: 50%;">Comments</button></a>
                             </center></div><!--panel-body-->
                         </div><!--panel-->
                     </div>
                     <div class="col-sm-7">
                         <div class = "panel panel-default" style="min-width: 65%;">
                             <div class = "panel-body" style = "width: 100%;">
-                                <!-- view accounts, blogs, comments -->
-                                <div id="comments">
+                                <div style="font-size: 15px;">
                                     @foreach($comment as $comments)
                                         <form method="POST" action="admin/{{ $comments->id }}/comment">
                                         {{ csrf_field() }}
                                             <button type="submit" name="delete" style="background-color: #FFFFFF; border: 0; color: #001687;">Delete</button> |&nbsp;
-                                            <span style="color: #afafaf;">{{ $comments->commentor_name }} said</span> {{ $comments->comment }} <cite style="color: #afafaf;"> {{ compDates($comments->comment_date) }}</cite>
+                                            {{ $comments->commentor_name }}<span style="color: #afafaf;"> said</span> {{ $comments->comment }} <cite style="color: #afafaf;"> {{ compDates($comments->comment_date) }}</cite>
                                             <input type="hidden" name="comment_id" value="{{ $comments->id }}">
-                                        </form>
+                                        </form><hr style="margin: 10px;">
                                     @endforeach
                                     {{ $comment->links() }}<br>
                                     @if(Session::has('message'))

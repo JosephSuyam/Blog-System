@@ -54,15 +54,9 @@ class Blog extends Model
 			->select('commentor_name', 'comment', 'comment_date')
 			->join('comments AS c', 'b.id', '=', 'c.blog_id')
 			->where('b.id', '=', $id)
-			->orderBy('comment_date', 'desc')
+			->orderBy('comment_date', 'asc')
 			->paginate(5);
 			return $comment;
-    }
-
-    public static function addBlog($user_id, $blog_title, $blog){ // add blog on users/home.blade
-			$qry = \DB::table('blogs')
-			->insert(['blog_title' => $blog_title, 'blog' => $blog, 'user_id' => $user_id, 'blog_date' => NOW(), 'allow' => '1']);
-			return $qry;
     }
 
     public static function selectBlogs(){ // select users for admin/admin

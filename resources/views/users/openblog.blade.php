@@ -11,13 +11,13 @@
             </div><br>
             <div ng-app="myApp" ng-controller="myCtrl">
                 <div style="font-size: 18px; margin-left: 15px;">
-                    <div id="newcomment" style="display: ;">
-                        <img src="{{ asset('img/user.png') }}" style="width: 25px; margin-bottom: 5px;"/>&nbsp;&nbsp;@{{ commentor_name }} said 
-                        @{{ comment }}
-                    </div>
                     @foreach($comments as $comment)
                         <div><img src="{{ asset('img/user.png') }}" style="width: 25px; margin-bottom: 5px;"/>&nbsp;&nbsp;{{ $comment->commentor_name }} said {{ $comment->comment }} <cite style="color: #afafaf;"> {{ compDates($comment->comment_date) }} </cite></div>
                     @endforeach
+                    <div id="newcomment" style="display: ;" ng-show="commentor_name.length > 0">
+                        <img src="{{ asset('img/user.png') }}" style="width: 25px; margin-bottom: 5px;"/>&nbsp;&nbsp;@{{ commentor_name }} said 
+                        @{{ comment }}
+                    </div>
                 </div>
                 {{ $comments->links() }}
                 <div style="margin-left: 15px;"><h3>Leave a comment:</h3>
@@ -41,15 +41,16 @@
         </div>
     </div>
     <script>
-        if($('#commentor_name').is(':empty') || $('#comment').is(':empty')){
+        // if($('#commentor_name').is(':empty') || $('#comment').is(':empty')){
             newcomment.style.display = "display";
             var app = angular.module('myApp', []);
             app.controller('myCtrl', function($scope) {  
             $scope.commentor_name = "";
             $scope.comment = "";  
             });
-        }else{
-            newcomment.style.display = "none";
-        }
+        // }else{
+        //     alert('yeahyeah');
+        //     newcomment.style.display = "none";
+        // }
     </script>
 @endsection

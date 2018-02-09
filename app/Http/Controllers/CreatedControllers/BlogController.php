@@ -40,7 +40,14 @@ class BlogController extends Controller
 		$user_stuff = auth()->user();
 		$user_id = $user_stuff->id;
 		if(isset($blog_title) && isset($blog) && !empty($blog_title) && !empty($blog)){
-			$blogs = Blog::addBlog($user_id, $blog_title, $blog);
+			// $blogs = Blog::addBlog($user_id, $blog_title, $blog);
+			$blogs = new Blog;
+			$blogs->blog_title = $blog_title;
+			$blogs->blog = $blog;
+			$blogs->user_id = $user_id;
+			$blogs->blog_date = NOW();
+			$blogs->allow = 1;
+			$blogs->save();
 			return redirect()->to('users/addblog')->with('message', 'Your blog have been saved!');
 		}else{
 			return redirect()->to('users/addblog')->with('message', 'Please fill up all forms.');

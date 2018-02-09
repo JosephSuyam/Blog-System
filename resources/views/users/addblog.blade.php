@@ -24,7 +24,7 @@
                                         <span>You have no blogs yet</span>
                                     @endif
                                 @endforeach
-                                <li><a>@{{ blog_title }}</a></li>
+                                <li ng-show="blog_title.length > 0"><a>@{{ blog_title }}</a></li>
                             </div><!--panel-body-->
                         </div><!--panel-->
                     </div>

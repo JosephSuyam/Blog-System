@@ -17,7 +17,7 @@
                                 <center>Control Panel</center>
                             </div>
                             <div class = "panel-body" style = "width: 100%;"><center>
-                                <button type="submit" name="users" class="btn btn-default" style="margin-bottom: 25px; width: 50%;" onclick="">Authors</button><br>
+                                <button type="submit" name="users" class="btn btn-default active" style="margin-bottom: 25px; width: 50%;" onclick="">Authors</button><br>
                                 <a href="blog"><button type="submit" name="blog" class="btn btn-default" style="margin-bottom: 25px; width: 50%;" onclick="">Blogs</button></a><br>
                                 <a href="comment"><button type="submit" name="comment" class="btn btn-default" style="margin-bottom: 25px; width: 50%;" onclick="">Comments</button></a>
                             </center></div><!--panel-body-->
@@ -26,8 +26,7 @@
                     <div class="col-sm-7">
                         <div class = "panel panel-default" style="min-width: 65%;">
                             <div class = "panel-body" style = "width: 100%;">
-                                <!-- view accounts, blogs, comments -->
-                                <div id="authors" style="display: block;">
+                                <div style="font-size: 15px;">
                                     @foreach($users as $authors)
                                         <form method="POST" action="admin/{{ $authors->id }}/user">
                                         {{ csrf_field() }}
@@ -38,7 +37,7 @@
                                             @endif
                                             {{ $authors->name }} <span style="color: #afafaf;"><cite>joined</cite> {{ compDates($authors->created_at) }}</span>
                                             <input type="hidden" name="id" value="{{ $authors->id }}">
-                                        </form>
+                                        </form><hr style="margin: 10px;">
                                     @endforeach
                                     {{ $users->links() }}<br>
                                     @if(Session::has('message'))
